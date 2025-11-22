@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leote Cortes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <main class="app-container glass">
+        <header>
+            <div class="logo">
+                <i class="fa-solid fa-scissors"></i>
+                <h1>Leote Cortes</h1>
+            </div>
+            <p>Agende seu horário de forma ágil com praticidade.</p>
+        </header>
+
+        <section id="step-1" class="step active">
+            <h2>Escolha o Serviço</h2>
+            <div class="services-grid" id="services-list">
+                <!-- Services will be injected here by JS -->
+            </div>
+        </section>
+
+        <section id="step-2" class="step hidden">
+            <div class="step-header">
+                <button class="back-btn" onclick="goToStep(1)"><i class="fa-solid fa-arrow-left"></i></button>
+                <h2>Data e Hora</h2>
+            </div>
+
+            <div class="date-picker">
+                <label>Data:</label>
+                <input type="date" id="date-input">
+            </div>
+
+            <div class="time-grid" id="time-list">
+                <!-- Time slots will be injected here by JS -->
+            </div>
+        </section>
+
+        <section id="step-3" class="step hidden">
+            <div class="step-header">
+                <button class="back-btn" onclick="goToStep(2)"><i class="fa-solid fa-arrow-left"></i></button>
+                <h2>Local do Atendimento</h2>
+            </div>
+
+            <div class="location-options">
+                <div class="location-card" onclick="selectLocation('residencia')">
+                    <i class="fa-solid fa-house-user"></i>
+                    <h3>Minha Residência</h3>
+                    <p>Rua Osvaldo Cruz 1415- Meireles</p>
+                </div>
+                <div class="location-card" onclick="selectLocation('domicilio')">
+                    <i class="fa-solid fa-car"></i>
+                    <h3>A Domicílio</h3>
+                    <p>Vou até você (Taxa a combinar) via WhatsApp</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="step-4" class="step hidden">
+            <div class="step-header">
+                <button class="back-btn" onclick="goToStep(3)"><i class="fa-solid fa-arrow-left"></i></button>
+                <h2>Confirmar</h2>
+            </div>
+
+            <div class="summary-card">
+                <div class="summary-item">
+                    <span class="label">Serviço</span>
+                    <span class="value" id="summary-service">...</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label">Data</span>
+                    <span class="value" id="summary-date">...</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label">Horário</span>
+                    <span class="value" id="summary-time">...</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label">Local</span>
+                    <span class="value" id="summary-location">...</span>
+                </div>
+                <div class="summary-item total">
+                    <span class="label">Total</span>
+                    <span class="value" id="summary-price">...</span>
+                </div>
+            </div>
+
+            <button id="whatsapp-btn" class="whatsapp-btn">
+                <i class="fa-brands fa-whatsapp"></i> Confirmar Agendamento
+            </button>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
