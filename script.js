@@ -1,5 +1,5 @@
-// Configuration
-const BUSINESS_PHONE = "5585982221133"; // Replace with user's number
+
+const BUSINESS_PHONE = "5585982221133";
 const SERVICES = [
     { id: 1, name: "Corte Social", price: 35, duration: "30 min" },
     { id: 2, name: "Corte Degradê", price: 40, duration: "40 min" },
@@ -8,7 +8,6 @@ const SERVICES = [
     { id: 5, name: "Sobrancelha", price: 5, duration: "5 min" }
 ];
 
-// State
 let state = {
     service: null,
     date: new Date().toISOString().split('T')[0],
@@ -16,7 +15,6 @@ let state = {
     location: null
 };
 
-// DOM Elements
 const steps = {
     1: document.getElementById('step-1'),
     2: document.getElementById('step-2'),
@@ -34,7 +32,7 @@ const summaryLocation = document.getElementById('summary-location');
 const summaryPrice = document.getElementById('summary-price');
 const whatsappBtn = document.getElementById('whatsapp-btn');
 
-// Initialize
+
 function init() {
     renderServices();
     dateInput.value = state.date;
@@ -44,19 +42,15 @@ function init() {
         state.date = e.target.value;
         renderTimeSlots();
     });
-
     whatsappBtn.addEventListener('click', sendToWhatsApp);
 }
 
-// Navigation
+
 function goToStep(stepNumber) {
-    // Hide all steps
-    Object.values(steps).forEach(step => {
+   Object.values(steps).forEach(step => {
         step.classList.remove('active');
         step.classList.add('hidden');
     });
-
-    // Show target step
     steps[stepNumber].classList.remove('hidden');
     steps[stepNumber].classList.add('active');
 
@@ -68,7 +62,7 @@ function goToStep(stepNumber) {
     }
 }
 
-// Render Services
+
 function renderServices() {
     servicesList.innerHTML = SERVICES.map(service => `
         <div class="service-card" onclick="selectService(${service.id})">
@@ -86,26 +80,25 @@ function selectService(id) {
     goToStep(2);
 }
 
-// Render Time Slots
+
 function renderTimeSlots() {
     const dateObj = new Date(state.date);
-    // Adjust for timezone to get correct day of week
     const userTimezoneOffset = dateObj.getTimezoneOffset() * 60000;
     const adjustedDate = new Date(dateObj.getTime() + userTimezoneOffset);
-    const dayOfWeek = adjustedDate.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+    const dayOfWeek = adjustedDate.getDay(); 
 
     let times = [];
 
-    // Logic for specific days
-    if (dayOfWeek === 2) { // Tuesday
+   
+    if (dayOfWeek === 2) { 
         times = ["18:00", "19:00", "20:00", "21:00"];
-    } else if (dayOfWeek === 0 || dayOfWeek === 6) { // Sunday (0) or Saturday (6)
+    } else if (dayOfWeek === 0 || dayOfWeek === 6) { 
         times = [
             "08:00", "09:00", "10:00", "11:00", "12:00",
             "13:00", "14:00", "15:00", "16:00", "17:00", "18:00"
         ];
     } else {
-        // Closed on other days
+       
         times = [];
     }
 
@@ -124,13 +117,12 @@ function renderTimeSlots() {
 
 function selectTime(time) {
     state.time = time;
-    // Re-render to show selection
+
     renderTimeSlots();
-    // Small delay for better UX
     setTimeout(() => goToStep(3), 300);
 }
 
-// Location Selection
+
 function selectLocation(type) {
     if (type === 'residencia') {
         state.location = "Na Sua Residência";
@@ -140,24 +132,19 @@ function selectLocation(type) {
     goToStep(4);
 }
 
-// Summary & WhatsApp
+
 function updateSummary() {
     if (!state.service) return;
 
     summaryService.textContent = state.service.name;
-
-    // Format date to PT-BR
     const dateObj = new Date(state.date);
-    // Fix timezone offset issue for display
     const userTimezoneOffset = dateObj.getTimezoneOffset() * 60000;
     const adjustedDate = new Date(dateObj.getTime() + userTimezoneOffset);
-
     summaryDate.textContent = adjustedDate.toLocaleDateString('pt-BR');
     summaryTime.textContent = state.time;
     summaryLocation.textContent = state.location;
     summaryPrice.textContent = `R$ ${state.service.price},00`;
 }
-
 function sendToWhatsApp() {
     if (!state.service || !state.date || !state.time || !state.location) return;
 
@@ -180,5 +167,5 @@ function sendToWhatsApp() {
     window.open(url, '_blank');
 }
 
-// Start
+
 init();
