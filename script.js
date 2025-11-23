@@ -125,9 +125,9 @@ function selectTime(time) {
 
 function selectLocation(type) {
     if (type === 'residencia') {
-        state.location = "Na Sua Residência";
+        state.location = "Osvaldo Cruz 1415 - Meireles";
     } else {
-        state.location = "A Domicílio ('-seu endereço aqui-')";
+        state.location = "A Domicílio ('-Digite seu endereço aqui-')";
     }
     goToStep(4);
 }
